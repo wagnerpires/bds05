@@ -50,8 +50,7 @@ public class User implements UserDetails {
                 .collect(Collectors.toList());
     }
 
-    
-   
+  
     public String getName() {
 		return name;
 	}
