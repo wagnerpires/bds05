@@ -17,8 +17,6 @@ import com.devsuperior.movieflix.mappers.UserMapper;
 import com.devsuperior.movieflix.repositories.UserRepository;
 import com.devsuperior.movieflix.services.exceptions.ResourceNotFoundException;
 
-
-
 @Service
 public class UserService implements UserDetailsService {
 
@@ -57,5 +55,6 @@ public class UserService implements UserDetailsService {
         User authenticatedUser = authService.authenticated();
         return USER_MAPPER.entityToDTO(authenticatedUser);
     }
-	
 }
+
+

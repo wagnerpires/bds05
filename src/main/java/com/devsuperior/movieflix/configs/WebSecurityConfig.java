@@ -1,5 +1,6 @@
 package com.devsuperior.movieflix.configs;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,13 +17,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	private final BCryptPasswordEncoder passwordEncoder;
-	private final UserDetailsService userDetailsService;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
-	public WebSecurityConfig(BCryptPasswordEncoder passwordEncoder, UserDetailsService userDetailsService) {
-		this.passwordEncoder = passwordEncoder;
-		this.userDetailsService = userDetailsService;
-	}
+	@Autowired
+	private UserDetailsService userDetailsService;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -31,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/actuator/**");
+		web.ignoring().antMatchers("/actuactor/**");
 	}
 
 	@Override
@@ -39,4 +38,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected AuthenticationManager authenticationManager() throws Exception {
 		return super.authenticationManager();
 	}
+
 }
