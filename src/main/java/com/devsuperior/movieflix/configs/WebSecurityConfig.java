@@ -1,4 +1,4 @@
-package com.devsuperior.movieflix.config;
+package com.devsuperior.movieflix.configs;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
