@@ -31,4 +31,6 @@ public class AuthService {
         if (!user.getId().equals(userId) && !user.hasRole("ROLE_ADMIN")) // se não for o próprio usuário logado ou se não for admin) {
             throw new ForbiddenException("Access denied");
     }
+    
+    
 }

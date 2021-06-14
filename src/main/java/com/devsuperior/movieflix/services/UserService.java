@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.movieflix.dtos.UserDTO;
 import com.devsuperior.movieflix.entities.User;
+import com.devsuperior.movieflix.mappers.UserMapper;
 import com.devsuperior.movieflix.repositories.UserRepository;
 import com.devsuperior.movieflix.services.exceptions.ResourceNotFoundException;
 
@@ -22,6 +23,7 @@ import com.devsuperior.movieflix.services.exceptions.ResourceNotFoundException;
 public class UserService implements UserDetailsService {
 
 	private static Logger logger = LoggerFactory.getLogger(UserService.class);
+	private static final UserMapper USER_MAPPER = UserMapper.INSTANCE;	
 	
 	@Autowired
 	private UserRepository repository;
@@ -49,5 +51,11 @@ public class UserService implements UserDetailsService {
 		logger.info("User found: " + username);
 		return user;
 	}
+	
+    @Transactional(readOnly = true)
+    public UserDTO getUserProfile() {
+        User authenticatedUser = authService.authenticated();
+        return USER_MAPPER.entityToDTO(authenticatedUser);
+    }
 	
 }
