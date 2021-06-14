@@ -1,4 +1,4 @@
-package com.devsuperior.movieflix.configs;
+package com.devsuperior.movieflix.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -8,8 +8,8 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @Configuration
-public class SecurityConfig {
-
+public class AppConfig {
+	
 	@Value("${jwt.secret}")
 	private String jwtSecret;
 	
@@ -28,5 +28,5 @@ public class SecurityConfig {
 	@Bean
 	public JwtTokenStore tokenStore() {
 		return new JwtTokenStore(accessTokenConverter());
-	}	
+	}
 }

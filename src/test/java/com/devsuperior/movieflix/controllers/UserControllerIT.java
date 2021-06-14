@@ -48,7 +48,7 @@ public class UserControllerIT {
 		String accessToken = tokenUtil.obtainAccessToken(mockMvc, visitorUsername, visitorPassword);
 
 		ResultActions result =
-				mockMvc.perform(get("/users/profile")
+				mockMvc.perform(get("/users/3")
 					.header("Authorization", "Bearer " + accessToken)
 					.accept(MediaType.APPLICATION_JSON));
 		
@@ -64,7 +64,7 @@ public class UserControllerIT {
 		String accessToken = tokenUtil.obtainAccessToken(mockMvc, memberUsername, memberPassword);
 
 		ResultActions result =
-				mockMvc.perform(get("/users/profile")
+				mockMvc.perform(get("/users/2")
 					.header("Authorization", "Bearer " + accessToken)
 					.accept(MediaType.APPLICATION_JSON));
 		
@@ -78,7 +78,7 @@ public class UserControllerIT {
 	public void getProfileShouldReturnUnauthorizedWhenNoUserLogged() throws Exception {
 		
 		ResultActions result =
-				mockMvc.perform(get("/users/profile")
+				mockMvc.perform(get("/users/10")
 					.accept(MediaType.APPLICATION_JSON));
 		
 		result.andExpect(status().isUnauthorized());

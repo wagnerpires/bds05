@@ -14,25 +14,19 @@ import com.devsuperior.movieflix.entities.User;
 import com.devsuperior.movieflix.repositories.UserRepository;
 
 @Component
-public class JwtTokenEnhancer implements TokenEnhancer {
+public class JwtTokenEnhancer implements TokenEnhancer{
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Override
-    public OAuth2AccessToken enhance(OAuth2AccessToken oAuth2AccessToken, OAuth2Authentication oAuth2Authentication) {
-
-        User user = userRepository.findByEmail(oAuth2Authentication.getName());
-
-        Map<String, Object> map = new HashMap<>();
-        map.put("userName", user.getName());
-        map.put("userId", user.getId());
-
-        DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) oAuth2AccessToken;
-        token.setAdditionalInformation(map);
-        
-        return oAuth2AccessToken;
-
-    }
+	@Autowired
+	private UserRepository repository;
+	
+	@Override
+	public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
+		User user = repository.findByEmail(authentication.getName());
+		Map<String,Object> map = new HashMap<>();
+		map.put("firstName", user.getName());
+		map.put("userId", user.getId());
+		DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) accessToken;
+		token.setAdditionalInformation(map);
+		return accessToken;
+	}
 }
-

@@ -1,5 +1,8 @@
 package com.devsuperior.movieflix.entities;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,15 +13,32 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_review")
-public class Review {
+public class Review implements Serializable{
+	private static final long serialVersionUID = 1L;
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-	
-	private String text;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    public Long getId() {
+	@Column(columnDefinition = "TEXT")
+	private String text;
+	
+	@ManyToOne()
+	@JoinColumn(name = "user_id")
+	private User user;
+	
+	@ManyToOne()
+	@JoinColumn(name = "movie_id")
+	private Movie movie;
+
+	public Review(Long id, String text, User user, Movie movie) {
+		this.id = id;
+		this.text = text;
+		this.user = user;
+		this.movie = movie;
+	}
+
+	public Long getId() {
 		return id;
 	}
 
@@ -38,10 +58,6 @@ public class Review {
 		return user;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	public Movie getMovie() {
 		return movie;
 	}
@@ -50,12 +66,37 @@ public class Review {
 		this.movie = movie;
 	}
 
-	@ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    @ManyToOne
-    @JoinColumn(name = "movie_id")
-    private Movie movie;
-    
+	public Review() {
+		
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Review other = (Review) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+	
 }

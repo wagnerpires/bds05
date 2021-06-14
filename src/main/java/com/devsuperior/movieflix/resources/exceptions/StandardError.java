@@ -3,16 +3,26 @@ package com.devsuperior.movieflix.resources.exceptions;
 import java.io.Serializable;
 import java.time.Instant;
 
-public class StandardError implements Serializable {
+public class StandardError implements Serializable{
+	
 	private static final long serialVersionUID = 1L;
-	
+
 	private Instant timestamp;
-	private Integer status;
-	private String error;
-	private String message;
-	private String path;
-	private String errors;
-	
+    private Integer status;
+    private String error;
+    private String message;
+    private String path;
+    
+    
+    public StandardError(Instant timestamp, Integer status, String error, String message, String path) {
+		super();
+		this.timestamp = timestamp;
+		this.status = status;
+		this.error = error;
+		this.message = message;
+		this.path = path;
+	}
+
 	public StandardError() {
 	}
 
@@ -55,5 +65,7 @@ public class StandardError implements Serializable {
 	public void setPath(String path) {
 		this.path = path;
 	}
+    
+    
+	
 }
-

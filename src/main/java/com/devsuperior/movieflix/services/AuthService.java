@@ -13,24 +13,24 @@ import com.devsuperior.movieflix.services.exceptions.UnauthorizedException;
 @Service
 public class AuthService {
 
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private UserRepository repository;
+	
+	@Transactional(readOnly = true)
+	public User authenticated() {
+		try {
+			String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+			return repository.findByEmail(userName);
+		}catch (Exception e) {
+			throw new UnauthorizedException("Invalid user");
+		}
+	}
 
-    @Transactional(readOnly = true)
-    public User authenticated() {
-        try {
-            String username = SecurityContextHolder.getContext().getAuthentication().getName();
-            return userRepository.findByEmail(username);
-        } catch (Exception e) {
-            throw new UnauthorizedException("Invalid user");
-        }
-    }
-
-    public void validateSelfOrAdmin(Long userId) {
-        User user = authenticated();
-        if (!user.getId().equals(userId) && !user.hasRole("ROLE_ADMIN")) // se não for o próprio usuário logado ou se não for admin) {
-            throw new ForbiddenException("Access denied");
-    }
-    
-    
+	public void validateSelforAdmin(Long userId) {
+		User user = authenticated();
+		
+		if(!user.getId().equals(userId) && !user.hasRole("ROLE_ADMIN")) {
+			throw new ForbiddenException("Access denied for user: " + user.getName());
+		}
+	}
 }

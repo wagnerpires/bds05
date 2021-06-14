@@ -7,24 +7,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.devsuperior.movieflix.dtos.UserDTO;
+import com.devsuperior.movieflix.dto.UserDTO;
 import com.devsuperior.movieflix.services.UserService;
 
 @RestController
-@RequestMapping(value = "/users")
+@RequestMapping("/users")
 public class UserResource {
-    @Autowired
-    private UserService service;
-
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
-        UserDTO dto = service.findById(id);
-        return ResponseEntity.ok().body(dto);
-    }
-        
-     @GetMapping("/profile")
-     public UserDTO getUserProfile() {
-            return service.getUserProfile();
-        }        
-   
+	
+	@Autowired
+	private UserService service;
+	
+	@GetMapping("/{id}")
+	private ResponseEntity<UserDTO> findById(@PathVariable Long id) {
+		return ResponseEntity.ok().body(service.findById(id));
+	}
 }
