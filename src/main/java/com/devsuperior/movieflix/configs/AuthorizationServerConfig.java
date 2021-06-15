@@ -23,7 +23,6 @@ import com.devsuperior.movieflix.components.JwtTokenEnhancer;
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter{
 
-
 	@Value("${security.oauth2.client.client-id}")
 	private String clientId;
 	
@@ -58,6 +57,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+		
 		clients.inMemory()
 		.withClient(clientId)
 		.secret(encoder.encode(clientSecret))
@@ -79,5 +79,4 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		.tokenEnhancer(chain)
 		.userDetailsService(userDetailsService);
 	}
-	
 }

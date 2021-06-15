@@ -8,6 +8,7 @@ public class OAuthCustomError implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private String error;
+	
 	@JsonProperty("error_Description")
 	private String errorDescription;
 
